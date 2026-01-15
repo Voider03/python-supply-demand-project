@@ -1,16 +1,3 @@
-""" 
-in this version, all sellers and buyers have variable stock per day
-there is no bargaining 
-if seller's ep < buyers's ep, buyer considers the seller 
-new expected price are calculated at the end of every day 
-4 values, id ep and mp and stock
-mp doesn't really matter in this simulation 
-at the start the user will type in the amount of buyers and amount of sellers 
-user then assigns the values of each entity
-and also stock resets every daye
-
-"""
-
 import random
 
 #keeping track of buyers and sellers
@@ -65,13 +52,14 @@ class Buyer:
 
 
 class Seller:
-    def __init__(self, Id, mp, ep, stock, dp):
+    def __init__(self, Id, mp, ep, stock, dp, bp):
         self.Id = Id
 
         self.mp = float(mp)
         self.ep = float(ep)
 
         self.dp = float(dp)
+        self.bp = float(bp)
 
         self.stock = stock
 
@@ -98,8 +86,9 @@ def detBuy(numBuyers):
         mp = float(input(f"Enter Buyer {i} mp: "))
         stock = int(input(f"Enter Buyer {i} stock: "))
         dp = float(input(f"Enter Buyer {i} discount percentage: "))
+        bp = float(input(f"Enter Buyer {i} maximum discount percentage: "))
 
-        buyers.append(Buyer(i, mp, ep, stock, dp))
+        buyers.append(Buyer(i, mp, ep, stock, dp, bp))
 
 def detSel(numSellers):
     for i in range(numSellers):
