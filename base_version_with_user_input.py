@@ -5,6 +5,8 @@ if seller's ep < buyers's ep, buyer considers the seller
 new expected price are calculated at the end of every day 
 three values, id ep and mp 
 mp doesn't really matter in this simulation 
+at the start the user will type in the amount of buyers and amount of sellers 
+user then assigns the values of each entity
 
 """
 
