@@ -53,14 +53,13 @@ class Buyer:
 
 
 class Seller:
-    def __init__(self, Id, mp, ep, stock, dp, bp, stp):
+    def __init__(self, Id, mp, ep, stock, dp, stp):
         self.Id = Id
 
         self.mp = float(mp)
         self.ep = float(ep)
 
         self.dp = float(dp)
-        self.bp = float(bp)
 
         self.stp = float(stp)
 
@@ -108,11 +107,10 @@ def detSel(numSellers):
         ep = float(input(f"\nEnter Seller {i} ep: "))
         mp = float(input(f"Enter Seller {i} mp: "))
         stock = int(input(f"Enter Seller {i} stock: "))
-        dp = float(input(f"Enter Buyer {i} discount percentage: "))
-        bp = float(input(f"Enter Buyer {i} maximum discount percentage: "))
-        stp = float(input(f"Enter Buyer {i} manimum stock percentage: "))
+        dp = float(input(f"Enter Seller {i} discount percentage: "))
+        stp = float(input(f"Enter Seller {i} manimum stock percentage: "))
 
-        sellers.append(Seller(i, mp, ep, stock, dp, bp, stp))
+        sellers.append(Seller(i, mp, ep, stock, dp, stp))
 
 def init():
     numBuyers = int(input("Enter number of buyers you want: "))
@@ -152,12 +150,12 @@ def day(day_num):
         for j in sellersRotated:
           if j.daily_stock == 0:
               continue
-          if j.ep <= i.ep:
-            i.shopsVisited[j] = j.ep
-          elif j.ep > i.ep and ((j.ep-i.ep)*(1-(i.dp-j.dp))) < i.bp * i.ep:
-            i.shopsVisited[j] = i.ep + ((j.ep-i.ep)*(1-(i.dp-j.dp)))
-          elif j.ep > i.mp:
+          if j.ep > i.mp:
               break
+          elif j.ep > i.ep and ((j.ep-i.ep)*(1-(i.dp-j.dp))) < i.bp * i.ep and i.ep + ((j.ep-i.ep)*(1-(i.dp-j.dp))) < i.mp:
+            i.shopsVisited[j] = i.ep + ((j.ep-i.ep)*(1-(i.dp-j.dp)))
+          elif j.ep <= i.ep:
+            i.shopsVisited[j] = j.ep
 
         while i.daily_stock != 0 and i.shopsVisited:
          i.buy()
