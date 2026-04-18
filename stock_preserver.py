@@ -76,14 +76,14 @@ class Seller:
             self.ep -= 1
         
         if self.earned <= 0:
-            self.ep += 2
+            self.ep -= 2
 
 
         if self.ep < self.mp:
             self.ep = self.mp
 
     def cleanup(self):
-        if self.daily_stock < (self.stock * self.stp):
+        if self.daily_stock <= (self.stock * self.stp):
             if self.earned > (self.stock - self.daily_stock) * self.mp:
                 self.earned -= ((self.stock - self.daily_stock) * self.mp)
                 self.daily_stock = self.stock
@@ -108,7 +108,7 @@ def detSel(numSellers):
         mp = float(input(f"Enter Seller {i} mp: "))
         stock = int(input(f"Enter Seller {i} stock: "))
         dp = float(input(f"Enter Seller {i} discount percentage: "))
-        stp = float(input(f"Enter Seller {i} manimum stock percentage: "))
+        stp = float(input(f"Enter Seller {i} minimum stock percentage: "))
 
         sellers.append(Seller(i, mp, ep, stock, dp, stp))
 
